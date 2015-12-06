@@ -39,7 +39,7 @@ unsigned int word_count = 0;
 // Create Node Function
 node* createNode (void)
 {
-    return (node*) malloc(sizeof(node));
+    return (node*) calloc(1, sizeof(node));
 }
 
 // Function that converts upper and lower-case letter to 0-25 values and ' to 26
@@ -80,15 +80,7 @@ void trieInsert(node* ptr, char* word, unsigned int cursor)
         // If there is no pointer, allocate one, then go there ...
         if (ptr->children[c] == NULL)
         {
-            ptr->children[c] = createNode();
-            
-            // Set Children to NULL
-            for (int i = 0; i < ALPHA_SIZE; i++)
-                ptr->children[c]->children[i] = NULL;
-                
-            // Set is_word to false
-            ptr->children[c]->is_word = false;
-                
+            ptr->children[c] = createNode();                
             trieInsert(ptr->children[c], word, cursor);
         }
         
@@ -161,13 +153,6 @@ bool load(const char* dictionary)
     
     // Create Root Node
     root = createNode();
-    
-    // Set Children to NULL
-    for (int i = 0; i < ALPHA_SIZE; i++)
-        root->children[i] = NULL;
-        
-    // Set is_word to false
-    root->is_word = false;
         
     // Read file in word by word    
     while (fgets(word, sizeof(word), file) != NULL)
