@@ -1,0 +1,94 @@
+0.  BMP:    This can vary depending on the size of storage bit, can be 1-bit = 2 colours, 2-bit = 4 colours, 4-bit = 16 colours,
+            and on to a maximum of 32-bit which would support 2^32 colours
+            
+    GIF:    Maximum bit size is 8-bit, meaning a GIF can support 256 colours
+    
+    JPEG:   Maximum bit size is 24-bit, meaning a JPEG can support 2^24 colours
+    
+    PNG:    Maximum bit size is 32-bit, however unlike JPEG a PNG uses the extra 8-bits for the alpha channel (transparency), meaning that
+            a PNG supports 2^24 colours but with the ability to vary transparency
+    
+    
+1.  GIF supports animation
+
+
+2.  Lossy compression occurs when information is thrown away as part of the compression process, making the compression not entirely reversible.
+    Lossless on the other hand retains all information; meaning that once compressed, a file can be uncompressed to be 1:1 with the original.
+
+
+3.  JPEG is lossy.
+
+
+4.  The FAT file system treats an erase file command as follows:
+        
+        1. The system modifies the first character in the filename to indicate that it has been deleted
+        
+        2. The system moves the files clusters to the free portion of the hard drive, the actual data is not touched
+
+
+5.  In order to ensure (with high probability) that deleted files stay deleted you can:
+
+        1. Overwrite the drive's free space, think of Apple's "write-to-zero" option in Disk Utility
+        
+        2. Degauss the drive, which randomizes the drive's magnetic domain, although this will most likely leave the drive unusable
+        
+        3. Physically destroy the drive, thereby rendering it unusable
+        
+
+6.  The #include <stdint.h> line pulls in a header file (stdint.h) that contains a number of integer type definitions (typedef) of fixed width. The purpose of these being
+    to enhance a program's portability across various hardware where the actual size on an int may vary. Essentially this creates a standardized (fixed) width for these
+    new int types, which can guarantee that:
+    
+        1. Exact-width integer types have the same number N of bits across all implementations (if available in implementation)
+        
+        2. Least-width integer types are the smallest type available
+        
+        3. Maximum-width integer types are the largest integer type in the implementation
+        
+        4. Faster integer types are the faster types available
+        
+        5. Pointer integer types are able to hold a pointer
+        
+
+7.  These predefined types allow for specific number usage; this is useful for tasks where you want to fill a specific amount of space
+    in a file, for example in BITMAPFILEHEADER and BITMAPINFOHEADER we want to ensure those are a standard size each time so we know to
+    ignore them when rendering the pixels.
+
+
+8.  BYTE:   8-bits  =   1-byte
+    DWORD:  32-bits =   4-bytes
+    LONG:   32-bits =   4-bytes
+    WORD:   16-bits =   2-bytes
+    
+
+9.  The "magic number" of a BMP files is stored in bfType and is equal to BM in ASCII or 0x424d in Hex.
+
+
+10. The variable bfSize resides in the file header and specifies the size of the file itself,
+    whereas biSize resides in the INFO header and specifies the size of that header (40 for a bitmap).
+
+
+11. If biHeight is negative (biHeight being the height of the image in pixels), this means that the bitmap is a top-down DIB and its origin is the upper left corner. Conversely,
+    if biHeight is possitive, the bitmap is bottom-up DIB and it's origin is the lower left corner.
+
+
+12. Colour depth is specified by biBitCount
+
+
+13. If there is no file to open, copy.c:37 will return NULL because it can't find the file.
+
+
+14. The third argument in fread specifies how many elements we want to read (nmemb), since we're always reading a struct we need only to
+    specify 1 as the argument.
+
+
+15. Padding = 3 (3 px * 3-bytes/px * 3 padding = 12 - is a multiple of 4)
+
+
+16. fseek moves the file position indicator to a specific location in a file.
+
+
+17. SEEK_CUR is an integer constant which allows the fseek (or fseeko) function to move relative to the current file position (must be passed in as the "whence" arg).
+
+
+18. Looks like Rob Bowden holding a cat!

@@ -1,0 +1,32 @@
+0.  A lung disease and the longest word in the dictionary file.
+
+1.  Returns resource usage information for the parameter passed in "who" which can be the calling process, child processes, or calling thread.
+
+2.  The struct rusage contains 16 members.
+
+3.  Passing a struct by reference to a function is more efficient than creating a copy
+
+4.  The main function in speller.c opens the file (fopen). Then by constructing a for loop 
+    to advance one index position at a time in the char array as it reads it in character by
+    character (using fgetc), ignoring all non alphabetical characters (except the ' char which it does read in),
+    until the a newline character is reached where the word is complete. It is then checked against the dictionary,
+    printed is misspelled, then the word index is reset to zero and we start again until we reach the end of file (EOF).
+    If a word is too long or does contain number/symbols, it is read in but not checked for spelling.
+
+5.  The main problem with fscanf for this application is that you would need to allocate memory before reading the file,
+    given that there is no maximum word count this would prove problematic. Also, fscanf doesn't allow us to the flexibility
+    to skip over alphanumeric words as easily.
+
+6.  The parameters check and load were not intended to be changed so they were declared as a const.
+
+7.  I chose a trie because they seemed like the logical choice. At a certain point I believe they actually use less space than a hash table would.
+    My node structure was pretty simple, I had a data note that carried the Boolean variable to indicate whether or not a word ended in that node,
+    and the an array of type node that were the children (27 of them, 26 letters plus the ')
+
+8.  I'm not exactly sure how slow it was, perhaps total time was around 0.8x, maybe less than that.
+
+9.  I had built the thing with as much recursion as possible which in addition to the trie structure I hoped would make it fast, and it did.
+    I ended up rewriting the check function so that it was not recursive and that actually sped things up so perhaps I can play around with
+    optimizing the load function next, at 0.08 it's the slowest part.
+
+10. Like I said, maybe the load function can be improved but overall at 0.14s total time I'm pretty happy with it.
